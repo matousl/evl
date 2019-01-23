@@ -5,11 +5,12 @@ HOST: http://webgis.nature.cz/aopkrest/Evl/
 
 Rozhraní pro získávání informací o **Evropsky významných lokalitách soustavy Natura 2000 (EVL)**.
 
+
 ## EVL - karta dle ID [/{kod}?f={f}]
 
-+ Parameters
-    + kod: 2612 (number) - Kod EVL
-    + f (string, optional) - formát výstupu
++ Parameters 
+    + kod: 2612 (number) - Kód EVL z ústředního seznamu ochrany přírody
+    + f (enum [string], optional) - formát výstupu
         + Default: html
         + Members
             + json
@@ -20,6 +21,7 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
 
 + Response 200 (application/json)
     + Attributes (LokalitaEVL)
+
 
 ## EVL - filtrování dle názvu [/filter/{pattern}?f={f}]
 
@@ -41,9 +43,10 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
         + lokality(LokalitaEVL)
         + lokality(LokalitaEVL)
 
+
 ## EVL - Zákres [/{kod}/shape?shapeFormat={shapeFormat}&crs={crs}&f={f}]
 + Parameters
-    + kod: 2612 (number) - Kod EVL
+    + kod: 2612 (number) - Kód EVL z ústředního seznamu ochrany přírody
     + shapeFormat (string, optional) - typ geometrie
         + Default: stgeometry
         + Members
@@ -69,9 +72,10 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
 + Response 200 (application/json)
     + Attributes (ZakresEVL)
     
-## EVL - Mapka [/{kod}/map?width={width}&height={height}&showsingle={showsingle}&bgmap={bgmap}&f={f}]
+
+## EVL - Mapa [/{kod}/map?width={width}&height={height}&showsingle={showsingle}&bgmap={bgmap}&f={f}]
 + Parameters
-    + kod: 2612 (number) - Kod EVL
+    + kod: 2612 (number) - Kód EVL z ústředního seznamu ochrany přírody
     + width: 800 (number, optional) - výška mapky
     + height: 500 (number, optional) - šířka mapky
     + showsingle: false (boolean, optional) - zobrazení zákresů všech lokalit/ pouze vybrané lokality
@@ -88,12 +92,37 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
             + xml
     
 
+    
 ### Přehled dotazů [GET]
 
 + Response 200 (application/json)
-    + Attributes (ZakresEVL)
+    + Attributes (MapaEVL)
+
+
+## EVL - Přehledka [/{kod}/preview?width={width}&height={height}&showsingle={showsingle}&bgmap={bgmap}&f={f}]
++ Parameters
+    + kod: 2612 (number) - Kód EVL z ústředního seznamu ochrany přírody
+    + width: 800 (number, optional) - výška obrázku mapy v pixelech
+    + height: 500 (number, optional) - šířka orázku mapy v pixelech
+    + bgmap (string, optional) - typ podkladové mapy
+        + Default: zm
+        + Members
+            + ortofoto 
+            + zm 
+    + f (string, optional) - formát výstupu
+        + Default: html
+        + Members
+            + json
+            + html
+            + xml
+
+### Přehled dotazů [GET]
+
++ Response 200 (application/json)
+    + Attributes (MapaPrehledEVL)
 
 # Data structures
+
 
 ## LokalitaEVL
 + Kod: 2502 (number) - kód lokality v ústředním seznamu ochrany přírody
@@ -111,6 +140,18 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
     + pc - panonská i kontinentální
 + NChu: `PR-část, PP část` (string) - `překryvy lokality s ostatními chráněnými územými (MZCHÚ), oddělené čárkamy (území NPP,NPR,PR,PP,CHKO v kombinaci část - pouze částečný překryv)`
 
+
 ## ZakresEVL
 + Kod: 2612 (number) - kód lokality v ústředním seznamu ochrany přírody
 + Shapes: `polygon ((-829460 -1018247, -829460 -1010403, -816512 -1010403, -816512 -1018247, -829460 -1018247))` (array[string]) - vrací souřadnice zákresu ve formátu ST_GEOMETRY
+
+## MapaEVL
++ Kod: 2502 (number) - kód lokality v ústředním seznamu ochrany přírody
++ Scale: 17045.4774803152 (number) - měřítko mapy - přesně
++ ImageSource: 137,80,78,71,13,10,96,130 (array [number]) - obrázek v bytech
++ ImageFormat: Jpeg (enum [string]) - formát souboru s obrázkem mapy
+    + Members
+    + Jpeg
++ ScaleView: 17 045 (string) - měřítko mapy zformátované pro zobrazení
+
+## MapaPrehledEVL (MapaEVL)
