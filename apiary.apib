@@ -5,6 +5,24 @@ HOST: http://webgis.nature.cz/aopkrest/Evl/
 
 Rozhraní pro získávání informací o **Evropsky významných lokalitách soustavy Natura 2000 (EVL)**.
 
+## EVL - filtrování dle názvu [/filter/{pattern}?f={f}]
+
++ Parameters
+    + pattern: Čes (string, optional) - řetězec pro vyhledání
+    + f (string, optional) - formát výstupu
+        + Default: html
+        + Members
+            + json
+            + html
+            + xml
+
+            
+### Přehled dotazů [GET]
+
++ Response 200 (application/json)
+   + Attributes (array[LokalitaEVL])
+   + Attributes (array[LokalitaEVL])
+
 
 ## EVL - karta dle ID [/{kod}?f={f}]
 
@@ -23,25 +41,8 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
     + Attributes (LokalitaEVL)
 
 
-## EVL - filtrování dle názvu [/filter/{pattern}?f={f}]
 
-+ Parameters
-    + pattern: Čes (string, optional) - řetězec pro vyhledání
-    + f (string, optional) - formát výstupu
-        + Default: html
-        + Members
-            + json
-            + html
-            + xml
-
-            
-### Přehled dotazů [GET]
-
-+ Response 200 (application/json)
-   + Attributes
-        + lokality(LokalitaEVL)
-        + lokality(LokalitaEVL)
-        + lokality(LokalitaEVL)
+        
 
 
 ## EVL - Zákres [/{kod}/shape?shapeFormat={shapeFormat}&crs={crs}&f={f}]
@@ -154,4 +155,4 @@ Rozhraní pro získávání informací o **Evropsky významných lokalitách sou
     + Jpeg
 + ScaleView: 17 045 (string) - měřítko mapy zformátované pro zobrazení
 
-## MapaPrehledEVL (MapaEVL)
+## MapaPrehledEVL (MapaEVL){
